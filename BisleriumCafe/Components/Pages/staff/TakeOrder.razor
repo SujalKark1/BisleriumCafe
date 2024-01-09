@@ -184,6 +184,17 @@
     List<CommonModel> orderList = new List<CommonModel>();
     List<CommonModel>? addingLists = new List<CommonModel>();
     UserModel CustomerModel = new UserModel();
+    // New fields for tracking customer purchases and membership status
+    private int customerPurchaseCount = 0;
+    private bool isRegularMember = false;
+    private DateTime lastPurchaseDate;
+    private const int RequiredDailyPurchases = 30; // Assuming 30 days in a month excluding weekends
+    private int currentMonthDailyPurchases = 0;
+
+    public TakeOrder()
+    {
+    }
+
     protected async override void OnInitialized()
     {
         notificationService.Clear();
@@ -304,14 +315,54 @@
     }
     protected async void Order()
     {
-        Trace.WriteLine("This is Discoint: " + discount);
+        Trace.WriteLine("This is Discount: " + discount);
+
+        // Update purchase count and check for free coffee eligibility
+        customerPurchaseCount++;
+        if (customerPurchaseCount >= 10)
+        {
+            free = true;
+            customerPurchaseCount = 0; // Reset the count
+        }
+
+        // Check if customer is a regular member
+        CheckRegularMemberStatus();
+
+        // Apply discount if customer is a regular member
+        if (isRegularMember)
+        {
+            discount = 10; // 10% discount for regular members
+        }
+
         decimal totalPrice = this.CalculateTotalPrice(free);
         await staffService.TakeOrder(orderList, email, totalPrice, free);
         await staffService.clearOrderList();
+
         isMember = false;
         discount = 0;
-        message = "Oder Placed Successfully";
+        free = false; // Reset free coffee flag
+        message = "Order Placed Successfully";
         StateHasChanged();
+    }
+    // Method to check if customer is a regular member
+    private void CheckRegularMemberStatus()
+    {
+        var currentDate = DateTime.Now;
+        if (lastPurchaseDate.Date == currentDate.Date.AddDays(-1))
+        {
+            currentMonthDailyPurchases++;
+        }
+        else
+        {
+            currentMonthDailyPurchases = 1;
+        }
+
+        lastPurchaseDate = currentDate;
+
+        if (currentDate.Day > RequiredDailyPurchases && currentMonthDailyPurchases >= RequiredDailyPurchases)
+        {
+            isRegularMember = true;
+        }
     }
 
     public void OpenAddModal()
@@ -326,6 +377,13 @@
     {
         showAddModal = false;
         showMemberModel = false;
+    }
+
+    private void MonthlyReset()
+    {
+        customerPurchaseCount = 0;
+        isRegularMember = false;
+        currentMonthDailyPurchases = 0;
     }
 }
 

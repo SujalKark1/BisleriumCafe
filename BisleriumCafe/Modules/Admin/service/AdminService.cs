@@ -148,7 +148,7 @@ public class AdminService
                         : Path.Combine(reportDirPath, $"OrderReport_{date.Month}_{date.Year}.pdf");
 
                     Trace.WriteLine("Report Path: " + reportPath);
-                    Document.Create(container =>
+                    QuestPDF.Fluent.Document.Create(container =>
                     {
                         container.Page(page =>
                         {

@@ -3,7 +3,8 @@ using BisleriumCafe.common.helperServices;
 using Microsoft.Extensions.Logging;
 using BisleriumCafe.Modules.Coffee.service;
 using BisleriumCafe.Modules.Staff.service;
-namespace FinalCoffee1
+
+namespace BisleriumCafe
 {
     public static class MauiProgram
     {
