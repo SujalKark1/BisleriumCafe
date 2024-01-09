@@ -13,10 +13,11 @@
 @using System.Diagnostics
 @inject SessionService sessionService;
 @inject ActionService actionService;
+
 <h3>Register Member</h3>
 
 <AdminForm ButtonLabel="Add Customer" Model="Model" OnSubmit="HandleSubmit" message="@message"
-    messageClass="@messageClass" />
+           messageClass="@messageClass" />
 
 @code {
     private string? message = "";

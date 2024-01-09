@@ -13,6 +13,7 @@
 @inject SessionService sessionService;
 @inject CoffeeService coffeeService;
 @inject ActionService actionService;
+
 <h3>Add-ins</h3>
 <table>
     <thead>
@@ -39,12 +40,12 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Add </h5>
+                                            <h5 class="modal-title">Add</h5>
                                         </div>
                                         <div class="modal-body">
                                             <CoffeeInput ButtonLabel="Edit Coffee" Model="addinsModel" OnSubmit="editAddins"
-                                                message="notificationService.Message"
-                                                messageClass="notificationService.messageClass"></CoffeeInput>
+                                                         message="notificationService.Message"
+                                                         messageClass="notificationService.messageClass"></CoffeeInput>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
@@ -72,7 +73,7 @@
                     </div>
                     <div class="modal-body">
                         <CoffeeInput ButtonLabel="Add Coffee" Model="addinsModel" OnSubmit="addAddins"
-                            message="notificationService.Message" messageClass="notificationService.messageClass"></CoffeeInput>
+                                     message="notificationService.Message" messageClass="notificationService.messageClass"></CoffeeInput>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
@@ -92,7 +93,7 @@
                 </div>
                 <div class="modal-body">
                     <AdminForm ButtonLabel="Log in" Model="Model" OnSubmit="Login" message="@message"
-                        messageClass="@messageClass"></AdminForm>
+                               messageClass="@messageClass"></AdminForm>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>

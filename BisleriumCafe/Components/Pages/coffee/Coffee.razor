@@ -13,7 +13,8 @@
 @inject SessionService sessionService;
 @inject CoffeeService coffeeService;
 @inject ActionService actionService;
-<h3>Menue</h3>
+
+<h3>Menu</h3>
 <table>
     <thead>
         <tr>
@@ -47,8 +48,8 @@
                                         </div>
                                         <div class="modal-body">
                                             <CoffeeInput ButtonLabel="Edit Coffee" Model="coffeeModel" OnSubmit="editCoffee"
-                                                message="notificationService.Message"
-                                                messageClass="notificationService.messageClass"></CoffeeInput>
+                                                         message="notificationService.Message"
+                                                         messageClass="notificationService.messageClass"></CoffeeInput>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
@@ -76,7 +77,7 @@
                     </div>
                     <div class="modal-body">
                         <CoffeeInput ButtonLabel="Add Coffee" Model="coffeeModel" OnSubmit="addCoffee"
-                            message="notificationService.Message" messageClass="notificationService.messageClass"></CoffeeInput>
+                                     message="notificationService.Message" messageClass="notificationService.messageClass"></CoffeeInput>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
@@ -96,7 +97,7 @@
                 </div>
                 <div class="modal-body">
                     <AdminForm ButtonLabel="Log in" Model="Model" OnSubmit="Login" message="@message"
-                        messageClass="@messageClass"></AdminForm>
+                               messageClass="@messageClass"></AdminForm>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
