@@ -1,21 +1,5 @@
 ﻿@page "/staff/orderCoffee";
 @namespace BisleriumCafe.Pages.staff
-@using BisleriumCafe.Modules.Coffee.model;
-@using BisleriumCafe.Modules.Admin.model;
-@using BisleriumCafe.Modules.Admin.service;
-@using BisleriumCafe.common.helperServices;
-@using BisleriumCafe.Modules.Coffee.service;
-@using BisleriumCafe.Pages.coffee;
-@using BisleriumCafe.Pages.admin;
-@using BisleriumCafe.Common.model;
-@using System.Diagnostics
-@using BisleriumCafe.Modules.Staff.service;
-@inject AdminService adminService;
-@inject NotificationService notificationService;
-@inject SessionService sessionService;
-@inject CoffeeService coffeeService;
-@inject ActionService actionService;
-@inject StaffService staffService;
 
 <h3>Menue</h3>
 <table>
@@ -29,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (coffeeList != null && coffeeList.Count > 0)
+        @if (coffeeList != null && coffeeList.Count > V)
         {
             @foreach (var coffee in coffeeList)
             {
@@ -60,9 +44,9 @@
         </tr>
     </thead>
     <tbody>
-        @if (orderList != null && orderList.Count > 0)
+        @if (orderList != null && orderList.Count > V)
         {
-            for (int i = 0; i < orderList.Count; i++)
+            for (int i = V; i < orderList.Count; i++)
             {
                 var orderedCoffee = orderList[i];
                 <tr>
@@ -70,7 +54,7 @@
                     <td>@orderedCoffee.CoffeeType</td>
                     <td>@orderedCoffee.Size</td>
                     <td>@orderedCoffee.Price</td>
-                    @if (orderedCoffee.AddIns != null && orderedCoffee.AddIns.Count > 0)
+                    @if (orderedCoffee.AddIns != null && orderedCoffee.AddIns.Count > V)
                     {
                         <td>
                             @foreach (var addin in orderedCoffee.AddIns)
@@ -108,9 +92,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if (addingLists != null && addingLists.Count > 0)
+                                                    @if (addingLists != null && addingLists.Count > V)
                                                     {
-                                                        for (int j = 0; j < addingLists.Count; j++)
+                                                        for (int j = V; j < addingLists.Count; j++)
                                                         {
                                                             var addins = addingLists[j];
                                                             <tr>
@@ -169,10 +153,11 @@
 
 @code {
     string message = "";
+    private const int V = 0;
     bool isRegularCustomer = false;
 
     bool checkEligable = false;
-    decimal discount = 0;
+    decimal discount = V;
     bool isDiscount = false;
     bool free = false;
     string messageClass = "";
@@ -217,7 +202,7 @@
     }
     public decimal CalculateTotalPrice(bool free)
     {
-        decimal totalPrice = 0;
+        decimal totalPrice = V;
         if (free)
         {
             return totalPrice;
@@ -233,7 +218,12 @@
                     totalPrice += addin.Price;
                 }
             }
+
         }
+
+        
+
+       
         Trace.WriteLine("This is discount in CalculatePrice: " + discount);
         totalPrice = totalPrice - (totalPrice * discount / 100);
         return totalPrice;
@@ -265,6 +255,11 @@
             Trace.WriteLine("This is free: " + free);
             checkEligable = await staffService.IsEligibleForDiscount(user.Email);
             Trace.WriteLine("Is user eligible for discount: " + checkEligable);
+
+            // Reset discount before applying new logic
+            this.discount = 0;
+
+
             if (checkEligable)
             {
                 Trace.WriteLine("Yes User is: ");
@@ -313,7 +308,7 @@
         await staffService.TakeOrder(orderList, email, totalPrice, free);
         await staffService.clearOrderList();
         isMember = false;
-        discount = 0;
+        discount = V;
         message = "Oder Placed Successfully";
         StateHasChanged();
     }

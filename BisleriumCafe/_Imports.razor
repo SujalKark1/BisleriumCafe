@@ -7,3 +7,33 @@
 @using Microsoft.JSInterop
 @using BisleriumCafe
 @using BisleriumCafe.Components
+@using BisleriumCafe.Modules.Admin.model
+@using BisleriumCafe.common.helperServices;
+@using BisleriumCafe.Common.model
+@using BisleriumCafe.Modules.Admin.service;
+@using System.Diagnostics;
+@using Microsoft.Extensions.Logging;
+@using BisleriumCafe.Modules.Staff.service;
+@using BisleriumCafe.Pages.admin
+@using BisleriumCafe.Modules.Staff.model;
+@using BisleriumCafe.Modules.Coffee.model;
+@using BisleriumCafe.Modules.Coffee.service;
+@using BisleriumCafe.Pages.coffee;
+@using System.ComponentModel.DataAnnotations;
+@inject ActionService actionService;
+@inject NavigationManager navigationManager;
+@inject AdminService adminService;
+@inject NotificationService notificationService;
+@inject SessionService sessionService;
+@inject StaffService staffService;
+@inject NavigationManager NavigationManager;
+@inject AdminService adminService;
+@inject NotificationService notificationService;
+@inject SessionService sessionService;
+@inject CoffeeService coffeeService;
+@inject ActionService actionService;
+
+
+
+
+
